@@ -12,6 +12,8 @@ Bu proje Düzce Üniversitesi Bilgisayar Mühendisliği Yüksek Lisans dersi ola
 ![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\operasyonlar.png)
 ![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\operasyonlar Kullanıcı.png)
 
+<img src="C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\kayıt.png"/>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
