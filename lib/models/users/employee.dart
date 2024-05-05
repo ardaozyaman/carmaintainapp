@@ -1,11 +1,19 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 import 'package:carmaintainapp/models/users/user.dart';
-
 import '../appointment.dart';
 import '../car.dart';
 
 class Employee extends User {
-  List<Car> cars = [];
-  List<Appointment> appointments = [];
+  List<Car> _cars = [];
+  List<Appointment> _appointments = [];
+
   Employee({
     required int? id,
     required String name,
@@ -40,7 +48,21 @@ class Employee extends User {
   @override
   Map<String, dynamic> toMap() {
     var map = super.toMap();
-    //map['department'] = department;
     return map;
+  }
+
+  List<Appointment> get appointments => _appointments;
+
+  set appointments(List<Appointment> value) {
+    if(value.isEmpty){
+      throw ArgumentError("Liste boş");
+    }
+    _appointments = value;
+  }
+
+  List<Car> get cars => _cars;
+
+  set cars(List<Car> value) {
+    _cars = value;
   }
 }

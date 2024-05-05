@@ -1,4 +1,14 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
+
 import 'package:carmaintainapp/models/users/enums/appointment_state.dart';
+import 'package:carmaintainapp/pages/appointment_details.dart';
 import 'package:carmaintainapp/pages/user/user_control_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +50,8 @@ class CustomerAppointmentsPage extends StatelessWidget {
                       trailing: trailing(appointment.state),
                       // Burada gerekirse listtile'a tıklanınca yapılacak işlemi ekleyebilirsiniz
                       onTap: () {
-                        // ListTile'a tıklanınca yapılacak işlem
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AppointmentDetailPage(appointment: appointment),));
+
                       },
                     ),
                   ),

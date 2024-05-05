@@ -1,5 +1,14 @@
+import 'package:carmaintainapp/models/operation.dart';
 import 'package:carmaintainapp/models/users/enums/appointment_state.dart';
 
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 import 'car.dart';
 
 class Appointment {
@@ -10,6 +19,7 @@ class Appointment {
   String appointmentDate;
   String description;
   AppointmentState state;
+  List<Operation> operations = [];
   Car? car;
 
   Appointment(
@@ -28,7 +38,7 @@ class Appointment {
       'customerId': customerId,
       'carId': carId,
       'appointmentDate': appointmentDate,
-      'state' : state.asString,
+      'state': state.asString,
       'description': description,
     };
   }

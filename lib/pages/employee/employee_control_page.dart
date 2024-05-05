@@ -1,8 +1,15 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 import 'package:carmaintainapp/pages/employee/on_prgress_appointments_employee.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/users/employee.dart';
-import 'carlist.dart';
+import '../../models/users/enums/appointment_state.dart';
 import 'waiting_appointments_employee.dart';
 
 Employee? loggedInEmployee;
@@ -19,7 +26,8 @@ class _ControlPanelState extends State<EmployeeControlPanel> {
 
   final List<Widget> _screens = [
     const InProgressAppointmentsPage(),
-    const EmployeeAppointmentsPage(),
+    const EmployeeAppointmentsPage(states: [AppointmentState.waiting]),
+    const EmployeeAppointmentsPage(states: [AppointmentState.finished,AppointmentState.cancelled]),
   ];
 
   void _onItemTapped(int index) {
@@ -46,6 +54,10 @@ class _ControlPanelState extends State<EmployeeControlPanel> {
           BottomNavigationBarItem(
             icon: Icon(Icons.date_range_rounded),
             label: 'Bekleyen Randevular',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.date_range_rounded),
+            label: 'Geçmiş Randevular',
           ),
         ],
         currentIndex: _selectedIndex,

@@ -1,11 +1,19 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 class Operation {
-  int id;
+  int? id;
   int appointmentId;
   String operationType;
-  double cost;
+  String cost;
 
   Operation({
-    required this.id,
+    this.id,
     required this.appointmentId,
     required this.operationType,
     required this.cost,
@@ -19,6 +27,8 @@ class Operation {
       'cost': cost,
     };
   }
+
+
 
   static Operation fromMap(Map<String, dynamic> map) {
     return Operation(

@@ -1,3 +1,11 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 import 'package:carmaintainapp/data/dbhelper.dart';
 import 'package:carmaintainapp/models/users/enums/appointment_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,12 +13,14 @@ import 'package:flutter/material.dart';
 
 import '../../models/appointment.dart';
 import '../../models/car.dart';
+import 'employee_appointment_details.dart';
 
 class InProgressAppointmentsPage extends StatefulWidget {
   const InProgressAppointmentsPage({super.key});
 
   @override
-  State<InProgressAppointmentsPage> createState() => _EmployeeAppointmentsPageState();
+  State<InProgressAppointmentsPage> createState() =>
+      _EmployeeAppointmentsPageState();
 }
 
 class _EmployeeAppointmentsPageState extends State<InProgressAppointmentsPage> {
@@ -45,23 +55,33 @@ class _EmployeeAppointmentsPageState extends State<InProgressAppointmentsPage> {
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Card(
-                  color: appointment.state == AppointmentState.cancelled ? Colors.redAccent : Colors.greenAccent,
+                  color: appointment.state == AppointmentState.cancelled
+                      ? Colors.redAccent
+                      : Colors.greenAccent,
                   child: ListTile(
-                      titleAlignment: ListTileTitleAlignment.center,
-                      title: Text(
-                        'Randevu Tarihi: ${appointment.appointmentDate}',
-                        textAlign: TextAlign.center,
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Araç Markası: ${appointment.car!.brand}'),
-                          Text('Araç Modeli: ${appointment.car!.modelName}'),
-                          Text('Açıklama: ${appointment.description}'),
-                        ],
-                      ),
-                      trailing: _trailing(appointment),
-                      leading: _leading(appointment.state)),
+                    titleAlignment: ListTileTitleAlignment.center,
+                    title: Text(
+                      'Randevu Tarihi: ${appointment.appointmentDate}',
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Araç Markası: ${appointment.car!.brand}'),
+                        Text('Araç Modeli: ${appointment.car!.modelName}'),
+                        Text('Açıklama: ${appointment.description}'),
+                      ],
+                    ),
+                    trailing: _trailing(appointment),
+                    leading: _leading(appointment.state),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EmployeeAppointmentDetailPage(
+                            appointment: appointment,
+                          ),
+                        )),
+                  ),
                 ),
               );
             },
@@ -69,13 +89,13 @@ class _EmployeeAppointmentsPageState extends State<InProgressAppointmentsPage> {
   }
 
   void _acceptAppointment(Appointment appointment) async {
-    appointment.state=AppointmentState.finished;
+    appointment.state = AppointmentState.finished;
     DbHelper dbHelper = DbHelper();
     await dbHelper.updateAppointment(appointment);
   }
 
   void _rejectAppointment(Appointment appointment) async {
-    appointment.state=AppointmentState.cancelled;
+    appointment.state = AppointmentState.cancelled;
     DbHelper dbHelper = DbHelper();
     await dbHelper.updateAppointment(appointment);
   }

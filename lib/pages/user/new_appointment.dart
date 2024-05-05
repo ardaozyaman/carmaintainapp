@@ -1,3 +1,12 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
+
 import 'package:carmaintainapp/data/dbhelper.dart';
 import 'package:carmaintainapp/models/appointment.dart';
 import 'package:carmaintainapp/models/car.dart';
@@ -23,7 +32,7 @@ class _NewAppointmentPageState extends State<NewAppointmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

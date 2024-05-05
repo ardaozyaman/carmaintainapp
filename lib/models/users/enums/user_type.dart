@@ -1,3 +1,12 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
+
 enum UserType {
   customer,
   employee,
@@ -10,6 +19,15 @@ extension UserTypesAsString on UserType {
         return "Employee";
       case UserType.customer:
         return "Customer";
+    }
+  }
+
+  String get asStringTr {
+    switch (this) {
+      case UserType.employee:
+        return "Çalışan";
+      case UserType.customer:
+        return "Müşteri";
     }
   }
 }

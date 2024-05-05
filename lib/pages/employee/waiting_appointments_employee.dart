@@ -1,27 +1,36 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 import 'package:carmaintainapp/data/dbhelper.dart';
 import 'package:carmaintainapp/models/users/enums/appointment_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/appointment.dart';
 import '../../models/car.dart';
 
 class EmployeeAppointmentsPage extends StatefulWidget {
-  const EmployeeAppointmentsPage({super.key});
-
+  const EmployeeAppointmentsPage({super.key, required this.states});
+  final List<AppointmentState> states;
   @override
-  State<EmployeeAppointmentsPage> createState() => _EmployeeAppointmentsPageState();
+  State<EmployeeAppointmentsPage> createState() =>
+      _EmployeeAppointmentsPageState();
 }
 
 class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
   @override
   Widget build(BuildContext context) {
+    var states = widget.states;
     return Scaffold(
       body: FutureBuilder(
-        future: _getAppointments(),
+        future: _getAppointments(states),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return _listBuilder(snapshot.data!);
+            return _listBuilder(snapshot.data!, states);
           } else {
             return const Padding(
               padding: EdgeInsets.all(16),
@@ -33,7 +42,8 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
     );
   }
 
-  Widget _listBuilder(List<Appointment> appointments) {
+  Widget _listBuilder(
+      List<Appointment> appointments, List<AppointmentState> states) {
     return appointments.isEmpty
         ? const Center(
             child: Text('Randevu bulunamadı'),
@@ -59,7 +69,7 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
                           Text('Açıklama: ${appointment.description}'),
                         ],
                       ),
-                      trailing: _trailing(appointment),
+                      trailing: _trailing(appointment, states),
                       leading: _leading(appointment.state)),
                 ),
               );
@@ -68,18 +78,30 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
   }
 
   void _acceptAppointment(Appointment appointment) async {
-    appointment.state=AppointmentState.inProgress;
+    appointment.state = AppointmentState.inProgress;
     DbHelper dbHelper = DbHelper();
     await dbHelper.updateAppointment(appointment);
   }
 
   void _rejectAppointment(Appointment appointment) async {
-    appointment.state=AppointmentState.cancelled;
+    appointment.state = AppointmentState.cancelled;
     DbHelper dbHelper = DbHelper();
     await dbHelper.updateAppointment(appointment);
   }
 
-  _trailing(Appointment appointment) {
+  _trailing(Appointment appointment, List<AppointmentState> states) {
+    if (states.contains(AppointmentState.cancelled) ||
+        states.contains(AppointmentState.finished)) {
+      return IconButton(
+        icon: const Icon(Icons.delete_forever, color: Colors.green),
+        onPressed: () {
+          _deleteAppointment(appointment);
+          setState(() {
+            _getAppointments(states);
+          });
+        },
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -88,7 +110,7 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
           onPressed: () {
             _acceptAppointment(appointment);
             setState(() {
-              _getAppointments();
+              _getAppointments(states);
             });
           },
         ),
@@ -97,7 +119,7 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
           onPressed: () {
             _rejectAppointment(appointment);
             setState(() {
-              _getAppointments();
+              _getAppointments(states);
             });
           },
         ),
@@ -125,17 +147,34 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
     );
   }
 
-  Future<List<Appointment>> _getAppointments() async {
+  /*Future<List<Appointment>> _getAppointments(
+      List<AppointmentState> states) async {
     DbHelper dbHelper = DbHelper();
     var list = await dbHelper.getAllAppointments();
     List<Appointment> listWaiting = list.where((element) {
-      return element.state == AppointmentState.waiting;
+      return element.state == states;
     }).toList();
+    var cars = await dbHelper.getAllCars();
+    return _mergeAppointmentsWithCars(listWaiting, cars);
+  }*/
+
+
+  Future<List<Appointment>> _getAppointments(
+      List<AppointmentState> states) async {
+    DbHelper dbHelper = DbHelper();
+    var list = await dbHelper.getAllAppointments();
+    List<Appointment> filteredAppointments = [];
+
+    for (var state in states) {
+      var appointmentsWithState =
+      list.where((appointment) => appointment.state == state);
+      filteredAppointments.addAll(appointmentsWithState);
+    }
 
     var cars = await dbHelper.getAllCars();
-
-    return _mergeAppointmentsWithCars(listWaiting, cars);
+    return _mergeAppointmentsWithCars(filteredAppointments, cars);
   }
+
 
   List<Appointment> _mergeAppointmentsWithCars(
     List<Appointment> appointments,
@@ -152,4 +191,10 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
 
     return appointmentsWithCars;
   }
+}
+
+
+void _deleteAppointment(Appointment appointment) {
+  DbHelper dbHelper = DbHelper();
+  dbHelper.deleteAppointment(appointment.id!);
 }

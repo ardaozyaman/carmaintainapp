@@ -1,5 +1,13 @@
-import 'dart:io';
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
 
+import 'dart:io';
 import 'package:carmaintainapp/models/users/customer.dart';
 import 'package:carmaintainapp/models/users/employee.dart';
 import 'package:carmaintainapp/pages/add_user.dart';
@@ -7,7 +15,6 @@ import 'package:carmaintainapp/pages/employee/employee_control_page.dart';
 import 'package:carmaintainapp/pages/user/user_control_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
 import 'data/dbhelper.dart';
 import 'models/appointment.dart';
 import 'models/car.dart';
@@ -31,14 +38,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: "App"),
+        '/': (context) => const MyHomePage(title: "Servis Randevu Sistemi"),
         '/registration': (context) => const RegistrationPage(),
         '/employee panel': (context) => const EmployeeControlPanel(),
         '/customer panel': (context) => const CustomerControlPanel(),
@@ -81,15 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 TextField(
                   controller: _mailController,
-                  decoration: const InputDecoration(labelText: 'mail'),
+                  decoration: const InputDecoration(labelText: 'Mail'),
                 ),
                 TextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'pass'),
+                  decoration: const InputDecoration(labelText: 'Şifre'),
                 ),
                 ElevatedButton(
                   onPressed: _logIn,
-                  child: const Text('Giriş'),
+                  child: const Text('Giriş Yap'),
                 ),
               ],
             ),
@@ -99,8 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async =>
             await Navigator.pushNamed(context, "/registration"),
-        tooltip: 'Add User',
-        child: const Icon(Icons.add),
+        tooltip: 'Yeni kayıt',
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add),
+            Text("Yeni Kayıt", style: TextStyle(fontSize: 10)),
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -111,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (user!.pass == _passwordController.text) {
       print("giriş basarılı");
       if (user is Employee) {
-        employeeLogIn(user,dbHelper);
+        employeeLogIn(user, dbHelper);
       } else if (user is Customer) {
         await customerLogIn(user, dbHelper);
       }
@@ -123,7 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
     var cars = await dbHelper.getAllCars();
     loggedInEmployee = user;
     user.cars = cars;
-    user.appointments = getAppointmentsWithCars(appointments, cars);
+    var list = getAppointmentsWithCars(appointments, cars);
+    if(list.isNotEmpty){
+      user.appointments = list;
+    }
     Navigator.pushNamed(context, '/employee panel');
   }
 
@@ -132,7 +147,10 @@ class _MyHomePageState extends State<MyHomePage> {
     var cars = await dbHelper.getCarsByCustomerId(user.id!);
     loggedInCustomer = user;
     user.cars = cars;
-    user.appointments = getAppointmentsWithCars(appointments, cars);
+    var list = getAppointmentsWithCars(appointments, cars);
+    if(list.isNotEmpty){
+      user.appointments = list;
+    }
     Navigator.pushNamed(context, '/customer panel');
   }
 

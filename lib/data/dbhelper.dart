@@ -1,3 +1,12 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
+
 import 'dart:async';
 import 'package:carmaintainapp/models/operation.dart';
 import 'package:path/path.dart';
@@ -25,7 +34,7 @@ class DbHelper {
     String path = join(databasesPath, 'appdb.db');
 
     var database = await openDatabase(path,
-        version: 2,
+        version: 1,
         onCreate: _createDb,
         onUpgrade: _onUpgrade,
         onDowngrade: _onUpgrade);
@@ -79,7 +88,7 @@ class DbHelper {
         description TEXT,
         FOREIGN KEY(customerId) REFERENCES userdata(id),
         FOREIGN KEY(carId) REFERENCES cars(id),
-        FOREIGN KEY(employeeId) REFERENCES userdata(id),        
+        FOREIGN KEY(employeeId) REFERENCES userdata(id)
       )
     ''');
 
@@ -87,8 +96,8 @@ class DbHelper {
       CREATE TABLE operations (
         id INTEGER PRIMARY KEY,
         appointmentId INTEGER,
-        operationsType TEXT,
-        cost REAL,
+        operationType TEXT,
+        cost TEXT,
         FOREIGN KEY(appointmentId) REFERENCES appointments(id)
       )
     ''');
@@ -174,8 +183,6 @@ class DbHelper {
     );
   }
 
-
-
   Future<List<Map<String, dynamic>>> getAll(String tableName) async {
     Database db = await database;
     return db.query(tableName);
@@ -220,9 +227,16 @@ class DbHelper {
     return results.map((map) => Appointment.fromMap(map)).toList();
   }
 
-  Future<List<Operation>> getOperationsByCarId(int carId) async {
+  Future<List<Map<String, dynamic>>> getByAppointmentId(
+      String tableName, int appointmentId) async {
+    Database db = await database;
+    return db
+        .query(tableName, where: 'appointmentId = ?', whereArgs: [appointmentId]);
+  }
+
+  Future<List<Operation>> getOperationsByAppointmentId(int appointmentId) async {
     List<Map<String, dynamic>> results =
-        await getByCustomerId('operations', carId);
+        await getByAppointmentId('operations', appointmentId);
     return results.map((map) => Operation.fromMap(map)).toList();
   }
 

@@ -2,6 +2,16 @@
 
 Bu proje Düzce Üniversitesi Bilgisayar Mühendisliği Yüksek Lisans dersi olan Nesneye Dayalı Programlama Dersinin vize projesidir.
 
+
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\giriş.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\kayıt.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\yeni randevu.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\bekleyen randevu.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\işlemdeki randevu.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\geçmiş.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\operasyonlar.png)
+![](C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\operasyonlar Kullanıcı.png)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

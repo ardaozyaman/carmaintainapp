@@ -1,9 +1,17 @@
+/****************************************************************************
+ **                              DÜZCE ÜNİVERSİTESİ
+ **                          LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ
+ **                       BİLGİSAYAR MÜHENDİLİĞİ ANABİLİM DALI
+ **                       ÖĞRENCİ ADI :          ARDA ÖZYAMAN
+ **                       ÖĞRENCİ NUMARASI :     2345007016
+ **
+ ****************************************************************************/
+
 import 'package:carmaintainapp/data/dbhelper.dart';
 import 'package:carmaintainapp/models/users/customer.dart';
 import 'package:carmaintainapp/models/users/employee.dart';
 import 'package:carmaintainapp/models/users/enums/user_type.dart';
 import 'package:flutter/material.dart';
-
 import '../models/users/user.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -79,11 +87,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 TextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'pass'),
+                  decoration: const InputDecoration(labelText: 'Şifre'),
                 ),
                 TextField(
                   controller: _mailController,
-                  decoration: const InputDecoration(labelText: 'mail'),
+                  decoration: const InputDecoration(labelText: 'Mail'),
                 ),
                 TextField(
                   controller: _phoneController,
@@ -103,7 +111,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   items: UserType.values
                       .map<DropdownMenuItem<UserType>>((userType) {
                     return DropdownMenuItem(
-                        value: userType, child: Text(userType.asString));
+                        value: userType, child: Text(userType.asStringTr));
                   }).toList(),
                 ),
                 ElevatedButton(
