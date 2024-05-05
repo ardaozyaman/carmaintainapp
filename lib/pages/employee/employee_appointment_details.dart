@@ -151,7 +151,6 @@ class _EmployeeAppointmentDetailPageState
   Future<List<Operation>> _getOperations(Appointment appointment) async {
     DbHelper dbHelper = DbHelper();
     return await dbHelper.getOperationsByAppointmentId(appointment.id!);
-    //return await dbHelper.getOperationsByCarId(appointment.id!);
   }
 
   void _clearFields() {

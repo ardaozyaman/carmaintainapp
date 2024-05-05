@@ -147,18 +147,6 @@ class _EmployeeAppointmentsPageState extends State<EmployeeAppointmentsPage> {
     );
   }
 
-  /*Future<List<Appointment>> _getAppointments(
-      List<AppointmentState> states) async {
-    DbHelper dbHelper = DbHelper();
-    var list = await dbHelper.getAllAppointments();
-    List<Appointment> listWaiting = list.where((element) {
-      return element.state == states;
-    }).toList();
-    var cars = await dbHelper.getAllCars();
-    return _mergeAppointmentsWithCars(listWaiting, cars);
-  }*/
-
-
   Future<List<Appointment>> _getAppointments(
       List<AppointmentState> states) async {
     DbHelper dbHelper = DbHelper();

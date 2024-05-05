@@ -3,9 +3,6 @@
 Bu proje Düzce Üniversitesi Bilgisayar Mühendisliği Yüksek Lisans dersi olan Nesneye Dayalı Programlama Dersinin vize projesidir.
 
 
-A
-
-<img src="C:\Users\ardao\OneDrive\Masaüstü\yl\oop\vize\ss\kayıt.png"/>
 
 ## Getting Started
 

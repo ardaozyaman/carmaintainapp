@@ -22,12 +22,9 @@ import 'models/users/user.dart';
 
 Future main() async {
   if (Platform.isWindows || Platform.isLinux) {
-    // Initialize FFI
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
   }
-  // Change the default factory. On iOS/Android, if not using `sqlite_flutter_lib` you can forget
-  // this step, it will use the sqlite version available on the system.
   runApp(const MyApp());
 }
 
@@ -48,7 +45,6 @@ class MyApp extends StatelessWidget {
         '/registration': (context) => const RegistrationPage(),
         '/employee panel': (context) => const EmployeeControlPanel(),
         '/customer panel': (context) => const CustomerControlPanel(),
-        //'/profile': (context) => ProfilePage(),
       },
     );
   }
@@ -113,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text("Yeni Kayıt", style: TextStyle(fontSize: 10)),
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 

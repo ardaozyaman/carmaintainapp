@@ -48,7 +48,6 @@ class CustomerAppointmentsPage extends StatelessWidget {
                         ],
                       ),
                       trailing: trailing(appointment.state),
-                      // Burada gerekirse listtile'a tıklanınca yapılacak işlemi ekleyebilirsiniz
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => AppointmentDetailPage(appointment: appointment),));
 

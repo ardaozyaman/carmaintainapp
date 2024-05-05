@@ -67,7 +67,6 @@ class AppointmentDetailPage extends StatelessWidget {
   Future<List<Operation>> _getOperations() async {
     DbHelper dbHelper = DbHelper();
     return await dbHelper.getOperationsByAppointmentId(appointment.id!);
-    //return await dbHelper.getOperationsByCarId(appointment.id!);
   }
 
   Widget _buildOperationList(List<Operation> operations) {

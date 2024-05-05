@@ -26,7 +26,6 @@ class _ControlPanelState extends State<CustomerControlPanel> {
 
   final List<Widget> _screens = [
     const NewAppointmentPage(),
-    //const PlaceholderWidget('Yeni Randevu Oluştur'),
     CustomerAppointmentsPage()
   ];
 
