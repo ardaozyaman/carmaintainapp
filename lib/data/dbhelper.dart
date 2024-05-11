@@ -14,7 +14,6 @@ import 'package:sqflite/sqflite.dart';
 import '../models/appointment.dart';
 import '../models/car.dart';
 import '../models/users/user.dart';
-
 class DbHelper {
   static final DbHelper _instance = DbHelper.internal();
 
@@ -230,11 +229,12 @@ class DbHelper {
   Future<List<Map<String, dynamic>>> getByAppointmentId(
       String tableName, int appointmentId) async {
     Database db = await database;
-    return db
-        .query(tableName, where: 'appointmentId = ?', whereArgs: [appointmentId]);
+    return db.query(tableName,
+        where: 'appointmentId = ?', whereArgs: [appointmentId]);
   }
 
-  Future<List<Operation>> getOperationsByAppointmentId(int appointmentId) async {
+  Future<List<Operation>> getOperationsByAppointmentId(
+      int appointmentId) async {
     List<Map<String, dynamic>> results =
         await getByAppointmentId('operations', appointmentId);
     return results.map((map) => Operation.fromMap(map)).toList();
@@ -263,4 +263,6 @@ class DbHelper {
       return null;
     }
   }
+
+
 }

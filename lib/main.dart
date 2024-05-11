@@ -71,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
         title: Text(widget.title,
             style: TextStyle(color: Theme.of(context).colorScheme.surface)),
+        actions: [IconButton(onPressed: () => extractDb, icon: const Icon(Icons.file_download,color: Colors.white,))],
+
       ),
       body: Center(
         child: AspectRatio(
@@ -153,14 +155,14 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Appointment> getAppointmentsWithCars(
       List<Appointment> appointments, List<Car> cars) {
     List<Appointment> appointmentsWithCars = [];
-
     for (var appointment in appointments) {
       Car car = cars.firstWhere((car) => car.id == appointment.carId);
-
       appointment.car = car;
       appointmentsWithCars.add(appointment);
     }
-
     return appointmentsWithCars;
+  }
+  Future<void> extractDb () async{
+
   }
 }
